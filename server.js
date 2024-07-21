@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
-
+const authRoutes = require('./Routes/Auth');
 // Load environment variables
 dotenv.config();
 
@@ -28,6 +28,8 @@ mongoose.connect(process.env.MONGO_URI, {
 app.get('/', (req, res) => {
   res.send('Hello, MERN!');
 });
+
+app.use('/api/', authRoutes);
 
 // Start the server
 app.listen(PORT, () => {

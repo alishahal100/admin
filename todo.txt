@@ -1,0 +1,4 @@
+//create ui for user,turfowner signup 
+//create a navbar and show navlinks based user role
+//update the ui for created components 
+//create a basic layout of the admin panel
