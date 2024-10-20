@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const authRoutes = require('./Routes/Auth');
+const userRoutes = require('./Routes/users');
+const turfRoutes = require('./Routes/turfRoutes')
 // Load environment variables
 dotenv.config();
 
@@ -30,6 +32,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/', authRoutes);
+app.use('/api/', userRoutes);
+app.use('/api/', turfRoutes);
 
 // Start the server
 app.listen(PORT, () => {
