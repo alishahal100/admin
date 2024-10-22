@@ -8,11 +8,15 @@ import UserSignUp from './Components/User/SignUp'
 import TurfSignUp from './Components/TurfOwner/SignUp'
 import SellerDashboard from './Components/TurfOwner/SellerDashboard'
 import TurfDetails from './Components/TurfDetails'
+import About from './Pages/About'
+import Contact from './Pages/Contact'
+import Navbar from './Components/Navbar'
 function App() {
 
 
   return (
    <main className=' container '>
+    
       <Router>
         <Routes>
           <Route path='/' element={<Home/>} />
@@ -23,6 +27,11 @@ function App() {
           <Route path='/admin/dashboard' element={<AdminHome/>} />
           <Route path='/seller/dashboard' element={<SellerDashboard/>} />
           <Route path="/turf/:id" element={<TurfDetails/>} />
+          <Route path="/about" element={<About/>} />
+          <Route path="/contact" element={<Contact/>} />
+
+
+
 
         </Routes>
       </Router>
