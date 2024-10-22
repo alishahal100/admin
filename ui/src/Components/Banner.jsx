@@ -3,7 +3,7 @@ import React from 'react';
 const Banner = () => {
   return (
     <div 
-      className='h-screen sm:h-screen h-[75vh] w-screen flex flex-col justify-center items-start bg-cover bg-center relative' 
+      className='h-[75vh] sm:h-screen w-screen flex flex-col justify-center items-start bg-cover bg-center relative' 
       style={{ backgroundImage: 'url(/ban8.jpg)' }}
     >
       {/* Gradient overlay for large screens only */}
