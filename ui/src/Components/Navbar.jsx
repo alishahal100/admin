@@ -1,12 +1,10 @@
 import React, { useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
-import {jwtDecode} from 'jwt-decode'
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const token = localStorage.getItem("token");
-  console.log("token:",token)
   const decodedToken = token ? jwtDecode(token) : null;
-  console.log('Decoded Token:', decodedToken);
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!dropdownOpen);
@@ -18,46 +16,76 @@ const Navbar = () => {
   };
 
   const renderDropdownLinks = () => {
-    if (decodedToken?.role === "admin") { // assuming 1 is admin
+    if (decodedToken?.role === "admin") {
       return (
-        <>
-          <a href="/admin/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-            Admin Dashboard
-          </a>
-        </>
+        <a
+          href="/admin/dashboard"
+          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          Admin Dashboard
+        </a>
       );
-    } else if (decodedToken?.role === "seller") { // assuming 2 is seller
+    } else if (decodedToken?.role === "seller") {
       return (
-        <>
-          <a href="/seller/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-            Seller Dashboard
-          </a>
-        </>
+        <a
+          href="/seller/dashboard"
+          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          Seller Dashboard
+        </a>
       );
     }
   };
 
   return (
-    <div className="flex items-center justify-between px-16 shadow-black shadow-xl h-auto py-5 z-50 top-0 gap-5 fixed w-screen bg-white text-black font-bold">
-      <div>
-      <h1>Gameday</h1>
+    <div className="flex items-center justify-between px-4 md:px-16 h-auto py-5 w-screen bg-white text-black font-bold border-b border-gray-300">
+      {/* Gameday title on the left */}
+      <div className="text-black text-2xl font-extrabold uppercase">
+        <h1 className="ml-4 md:ml-0">
+          Gameday<span className="text-orange-500">.</span>
+        </h1>
       </div>
-      <div className="relative">
-        <span className="cursor-pointer" onClick={handleDropdownToggle}>
-          {token ? `Welcome, ${decodedToken?.username}` : (
-            <div className="flex gap-1">
-              <a href="/signin" className="text-blue-500">Sign In</a>
-              <a href="/user/signup" className="text-blue-500">Sign Up</a>
-            </div>
-          )}
-        </span>
+
+      {/* Profile Image Icon */}
+      <div className="relative mr-4 md:mr-0">
+        <div className="w-6 h-6 cursor-pointer" onClick={handleDropdownToggle}>
+          <img
+            src="/profile_icon.png"
+            alt="Profile Icon"
+            className="w-6 h-6"
+          />
+        </div>
+
         {dropdownOpen && (
-          <div className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">
+          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50"> {/* Added z-50 here */}
             <div className="py-1">
-              {renderDropdownLinks()}
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleLogout}>
-                Logout
-              </a>
+              {token ? (
+                <>
+                  {renderDropdownLinks()}
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </a>
+                </>
+              ) : (
+                <>
+                  <a
+                    href="/signin"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Sign In
+                  </a>
+                  <a
+                    href="/user/signup"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Sign Up
+                  </a>
+                </>
+              )}
             </div>
           </div>
         )}
