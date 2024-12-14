@@ -14,7 +14,7 @@ const Home = () => {
       <Banner/>
       <Cardimg/>
     
-      {/* <TurfReel/> */}
+      <TurfReel/> 
       {/* <Texts/> */}
       <Footer/>
     </div>

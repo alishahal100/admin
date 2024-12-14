@@ -10,16 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@fortawesome/free-brands-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@headlessui/react": "^2.2.0",
+    "@mui/material": "^6.1.5",
     "@react-google-maps/api": "^2.20.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "axios": "^1.7.2",
+    "axios": "^1.7.7",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.411.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.1",
     "react-router-dom": "^6.25.1",
     "swiper": "^11.1.14"
   },

@@ -74,9 +74,28 @@ const getTurfById = async (req, res) => {
   }
 };
 
+
+const getTurfByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params; // Get the user (owner) ID from the request parameters
+    const turfs = await Turf.find({ userId: userId }); // Fetch turfs by owner ID
+      console.log("userid:" ,userId)
+    if (turfs.length === 0) {
+      return res.status(404).json({ error: 'No turfs found for this owner' }); // Handle case where no turfs are found
+    }
+
+    res.status(200).json(turfs); // Return the list of turfs
+  } catch (error) {
+    console.error('Error fetching turfs by user ID:', error);
+    res.status(500).json({ error: 'Failed to fetch turfs by user ID' });
+  }
+};
+
+
 module.exports = {
   addTurf,
   upload,
   getTurfs,
+  getTurfByUserId,
   getTurfById
 };

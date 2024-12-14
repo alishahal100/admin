@@ -1,22 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import AddTurf from './AddTurf';
-
+import ManageTurf from './ManageTurf';
+import SlotManager from './SlotManager';
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 // Example components for each section
-const ManageTurf = () => <div>Manage Turf Component</div>;
+
 const ViewBookings = () => <div>View Bookings Component</div>;
 const ViewReviews = () => <div>View Reviews Component</div>;
 const ViewProfile = () => <div>View Profile Component</div>;
 
 const Navbar = () => {
   const [selectedSection, setSelectedSection] = useState('addTurf'); // Default to AddTurf
+     const [turfId, setTurfId] = useState(null);
+    const token = localStorage.getItem('token');
+    console.log("token:",token)
+    const userId = token ? jwtDecode(token).userId : null;
+    console.log("userid:",userId)
+    // Fetch the turf ID based on user ID
+    useEffect(() => {
+      const fetchTurfId = async () => {
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_REACT_APP_API_ENDPOINT}/turfs/owner/${userId}`
+          );
+      
+          // Assuming response.data is an array
+          if (response.data && response.data.length > 0) {
+            const fetchedTurfId = response.data[0]._id;
+            setTurfId(fetchedTurfId);
+            console.log('Fetched turf ID:', fetchedTurfId);
+          } else {
+            console.error('No turf found for this user.');
+          }
+        } catch (error) {
+          console.error('Error fetching turf ID:', error);
+        }
+      };
+      
+  
+      if (userId) {
+        fetchTurfId();
+      }
+    }, [userId]);
+  
+
 
   // Function to render the selected section
   const renderSection = () => {
     switch (selectedSection) {
       case 'addTurf':
         return <AddTurf />;
-      case 'manageTurf':
-        return <ManageTurf />;
+      case 'Manage slots':
+        return <SlotManager turfId={turfId}/>;
       case 'viewBookings':
         return <ViewBookings />;
       case 'viewReviews':
@@ -56,10 +92,10 @@ const Navbar = () => {
               Add Turf
             </button>
             <button
-              onClick={() => setSelectedSection('manageTurf')}
+              onClick={() => setSelectedSection('Manage slots')}
               className="hover:text-gray-400"
             >
-              Manage Turf
+              Manage Slots
             </button>
             <button
               onClick={() => setSelectedSection('viewBookings')}

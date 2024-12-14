@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const authRoutes = require('./Routes/Auth');
 const userRoutes = require('./Routes/users');
 const turfRoutes = require('./Routes/turfRoutes')
+const slotRoutes = require('./Routes/slotRoutes')
 // Load environment variables
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.get('/', (req, res) => {
 app.use('/api/', authRoutes);
 app.use('/api/', userRoutes);
 app.use('/api/', turfRoutes);
+app.use('/api/slots', slotRoutes);
 
 // Start the server
 app.listen(PORT, () => {

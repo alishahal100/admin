@@ -1,5 +1,5 @@
 const express = require('express');
-const { addTurf, upload,getTurfs ,getTurfById} = require('../Controller/turfController');
+const { addTurf, upload,getTurfs ,getTurfById,getTurfByUserId} = require('../Controller/turfController');
 
 const router = express.Router();
 
@@ -7,4 +7,5 @@ const router = express.Router();
 router.post('/add-turf', upload.fields([{ name: 'images' }, { name: 'videos' }]), addTurf);
 router.get('/get-turfs',getTurfs);
 router.get('/get-turf/:id', getTurfById); 
+router.get('/turfs/owner/:userId', getTurfByUserId); 
 module.exports = router;
